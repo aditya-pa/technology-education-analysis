@@ -53,9 +53,18 @@
         }
         .chart-container {
             position: relative;
-            height: 320px;
+            height: 380px;
             width: 100%;
             padding: 10px;
+        }
+        
+        /* Specific chart heights for better balance */
+        .gender-chart-container {
+            height: 340px;
+        }
+        
+        .radar-chart-container {
+            height: 380px;
         }
         
         /* Mobile Optimizations */
@@ -69,6 +78,14 @@
                 height: 300px;
                 padding: 8px;
                 margin: 16px 0;
+            }
+            
+            .gender-chart-container {
+                height: 280px;
+            }
+            
+            .radar-chart-container {
+                height: 320px;
             }
             
             .stat-card {
@@ -359,7 +376,7 @@
                 <!-- Gender Agreement Scores -->
                 <div class="stat-card">
                     <h3 class="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-6 md:mb-8 text-gray-800">Parental Agreement: Gender & Tech Ability</h3>
-                    <div class="chart-container">
+                    <div class="chart-container gender-chart-container">
                         <canvas id="genderBiasChart"></canvas>
                     </div>
                     <div class="grid grid-cols-2 gap-3 sm:gap-4 md:gap-6 mt-4 sm:mt-6">
@@ -375,6 +392,12 @@
                             <div class="text-xs sm:text-sm text-emerald-600">Ireland - Lower Gender Bias</div>
                             <div class="text-xs text-gray-600 mt-1">Boys: 75.6% | Girls: 74.2%</div>
                         </div>
+                    </div>
+                    
+                    <!-- Reduced insights -->
+                    <div class="mt-4 p-3 bg-gray-50 rounded-lg">
+                        <h4 class="font-bold text-gray-800 mb-2">📊 5x Gender Bias Difference</h4>
+                        <p class="text-sm text-gray-600">Irish parents show significantly more progressive views on gender equality in STEM education.</p>
                     </div>
                 </div>
 
@@ -513,8 +536,20 @@
             <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
                 <div class="stat-card">
                     <h3 class="text-2xl font-bold mb-6 text-gray-800">Interest vs Confidence Profile</h3>
-                    <div class="chart-container">
+                    <div class="chart-container radar-chart-container">
                         <canvas id="radarChart"></canvas>
+                    </div>
+                    
+                    <!-- Reduced Radar Chart Insights -->
+                    <div class="mt-4 space-y-3">
+                        <div class="p-3 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+                            <h4 class="font-bold text-blue-800 text-sm mb-1">🇮🇳 India: High Interest, Lower Confidence</h4>
+                            <p class="text-xs text-blue-700">Strong motivation (2.93) needs practical skill development.</p>
+                        </div>
+                        <div class="p-3 bg-emerald-50 rounded-lg border-l-4 border-emerald-500">
+                            <h4 class="font-bold text-emerald-800 text-sm mb-1">🇮🇪 Ireland: High Confidence, Moderate Interest</h4>
+                            <p class="text-xs text-emerald-700">Strong technical foundation (2.97) with engagement opportunities.</p>
+                        </div>
                     </div>
                 </div>
                 
