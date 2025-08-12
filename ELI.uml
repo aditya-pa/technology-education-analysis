@@ -1,0 +1,61 @@
+classDiagram
+    %% Define Classes
+    class DataCollection {
+        +loadExcelData()
+        +cleanData()
+        +validateResponses()
+    }
+
+    class TAMCalculation {
+        +mapStudentResponses()
+        +mapParentResponses()
+        +calculateScores()
+    }
+
+    class CrossCulturalAnalysis {
+        +compareCountries()
+        +analyzeGenderBias()
+        +assessTechnologyAccess()
+    }
+
+    class ResultsGeneration {
+        +createVisualizations()
+        +generateInsights()
+        +provideRecommendations()
+    }
+
+    class StudentData {
+        -confidence_levels
+        -interest_levels
+        -career_aspirations
+    }
+
+    class ParentData {
+        -child_perceptions
+        -gender_stereotypes
+        -technology_access
+    }
+
+    class TAMScores {
+        -perceived_usefulness
+        -perceived_ease_of_use
+        -attitude_score
+    }
+
+    class CountryComparison {
+        -ireland_results
+        -india_results
+        -key_differences
+    }
+
+    %% Define Relationships
+    DataCollection -- StudentData : processes
+    DataCollection -- ParentData : processes
+    StudentData ..> TAMCalculation : input to
+    ParentData ..> TAMCalculation : input to
+    TAMCalculation -- TAMScores : produces
+    TAMScores ..> CrossCulturalAnalysis : feeds into
+    StudentData ..> CrossCulturalAnalysis : analyzed by
+    ParentData ..> CrossCulturalAnalysis : analyzed by
+    CrossCulturalAnalysis -- CountryComparison : creates
+    CountryComparison ..> ResultsGeneration : input to
