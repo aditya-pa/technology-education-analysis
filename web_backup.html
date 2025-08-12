@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cross-Cultural Technology Education Analysis: India vs Ireland</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            line-height: 1.6;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #475569 75%, #64748b 100%);
+        }
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #10b981, #f59e0b, #ef4444);
+        }
+        .stat-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 1);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 50%, #1e40af 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+        .chart-container {
+            position: relative;
+            height: 320px;
+            width: 100%;
+            padding: 10px;
+        }
+        .metric-card {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-left: 5px solid #3b82f6;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        .metric-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+        .insight-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 5px solid #f59e0b;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .country-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .india-badge {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+        }
+        .ireland-badge {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+            margin: 60px 0;
+        }
+        .floating-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+        }
+        .progress-bar {
+            height: 8px;
+            background-color: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.8s ease-in-out;
+        }
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="text-gray-900">
+
+    <!-- Hero Section -->
+    <header class="hero-gradient text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/20"></div>
+        <div class="relative z-10 container mx-auto px-6 py-24">
+            <div class="text-center mb-16">
+                <h1 class="text-5xl md:text-7xl font-black mb-8 leading-tight">
+                    <span class="block bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
+                        Technology Education
+                    </span>
+                    <span class="block text-white">Across Cultures</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-12 leading-relaxed">
+                    A comprehensive cross-cultural analysis comparing STEM perceptions, technology acceptance, and educational attitudes between <span class="font-bold text-blue-300">India</span> and <span class="font-bold text-emerald-300">Ireland</span> using the Technology Acceptance Model framework.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4 mb-12">
+                    <span class="country-badge india-badge">🇮🇳 India</span>
+                    <span class="country-badge ireland-badge">🇮🇪 Ireland</span>
+                </div>
+            </div>
+            
+            <!-- Statistics Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+                <div class="floating-card text-center">
+                    <div class="text-4xl font-black text-blue-400 mb-2">156</div>
+                    <div class="text-gray-300 text-sm">Total Participants</div>
+                </div>
+                <div class="floating-card text-center">
+                    <div class="text-4xl font-black text-emerald-400 mb-2">79</div>
+                    <div class="text-gray-300 text-sm">Students Surveyed</div>
+                </div>
+                <div class="floating-card text-center">
+                    <div class="text-4xl font-black text-yellow-400 mb-2">77</div>
+                    <div class="text-gray-300 text-sm">Parents Surveyed</div>
+                </div>
+                <div class="floating-card text-center">
+                    <div class="text-4xl font-black text-red-400 mb-2">2</div>
+                    <div class="text-gray-300 text-sm">Countries Analyzed</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-20">
+
+        <!-- Technology Acceptance Model Results -->
+        <section class="mb-24 animate-on-scroll">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-black mb-6 gradient-text">Technology Acceptance Model Results</h2>
+                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                    Using the TAM framework, we analyzed how students and parents perceive technology usefulness and ease of use. The results reveal profound cultural differences in motivation, confidence, and educational approaches.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-8 mb-16">
+                <div class="stat-card">
+                    <h3 class="text-2xl font-bold mb-6 text-gray-800">Student TAM Scores Comparison</h3>
+                    <div class="chart-container">
+                        <canvas id="studentTamChart"></canvas>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <h3 class="text-2xl font-bold mb-6 text-gray-800">Parent TAM Scores Comparison</h3>
+                    <div class="chart-container">
+                        <canvas id="parentTamChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAM Insights Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="metric-card text-center">
+                    <div class="text-5xl font-black text-blue-600 mb-3">2.933</div>
+                    <div class="text-lg font-bold text-gray-800 mb-2">India - Perceived Usefulness</div>
+                    <div class="text-sm text-gray-600">Higher STEM interest and motivation</div>
+                    <div class="progress-bar mt-4">
+                        <div class="progress-fill bg-blue-500" style="width: 73%"></div>
+                    </div>
+                </div>
+                <div class="metric-card text-center">
+                    <div class="text-5xl font-black text-emerald-600 mb-3">2.971</div>
+                    <div class="text-lg font-bold text-gray-800 mb-2">Ireland - Perceived Ease of Use</div>
+                    <div class="text-sm text-gray-600">Higher coding confidence and technical skills</div>
+                    <div class="progress-bar mt-4">
+                        <div class="progress-fill bg-emerald-500" style="width: 74%"></div>
+                    </div>
+                </div>
+                <div class="insight-box text-center">
+                    <div class="text-5xl font-black text-amber-600 mb-3">0.044</div>
+                    <div class="text-lg font-bold text-gray-800 mb-2">Interest-Confidence Correlation</div>
+                    <div class="text-sm text-gray-600">Weak link reveals education gaps</div>
+                    <div class="progress-bar mt-4">
+                        <div class="progress-fill bg-amber-500" style="width: 4%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Gender Bias Analysis -->
+        <section class="mb-24 animate-on-scroll">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-black mb-6 gradient-text">Gender Bias in Technology Perceptions</h2>
+                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                    Our analysis reveals a <span class="font-bold text-red-600">5x difference</span> in gender bias between countries. Irish parents show significantly more progressive views on gender equality in technology education.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                <!-- Gender Agreement Scores -->
+                <div class="stat-card">
+                    <h3 class="text-2xl font-bold mb-8 text-gray-800">Parental Agreement: Gender & Tech Ability</h3>
+                    <div class="chart-container">
+                        <canvas id="genderBiasChart"></canvas>
+                    </div>
+                    <div class="grid grid-cols-2 gap-6 mt-6">
+                        <!-- India Section -->
+                        <div class="text-center p-4 bg-red-50 rounded-lg">
+                            <div class="text-lg font-bold text-red-700">7.2 Point Gap</div>
+                            <div class="text-sm text-red-600">India - Higher Gender Bias</div>
+                            <div class="text-xs text-gray-600 mt-1">Boys: 68.6% | Girls: 61.4%</div>
+                        </div>
+                        <!-- Ireland Section -->
+                        <div class="text-center p-4 bg-emerald-50 rounded-lg">
+                            <div class="text-lg font-bold text-emerald-700">1.4 Point Gap</div>
+                            <div class="text-sm text-emerald-600">Ireland - Lower Gender Bias</div>
+                            <div class="text-xs text-gray-600 mt-1">Boys: 75.6% | Girls: 74.2%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bias Comparison Visualization -->
+                <div class="stat-card">
+                    <h3 class="text-2xl font-bold mb-8 text-gray-800">Cultural Bias Comparison</h3>
+                    <div class="space-y-8">
+                        <div class="border-l-4 border-red-500 pl-6 py-4">
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="text-xl font-bold text-red-600">India: Significant Bias</h4>
+                                <span class="text-3xl font-black text-red-600">7.2°</span>
+                            </div>
+                            <div class="progress-bar h-4">
+                                <div class="progress-fill bg-red-500" style="width: 72%"></div>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-3">Boys perceived as significantly more capable in technology. Traditional gender role expectations influence parental perceptions.</p>
+                        </div>
+                        
+                        <div class="border-l-4 border-emerald-500 pl-6 py-4">
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="text-xl font-bold text-emerald-600">Ireland: Minimal Bias</h4>
+                                <span class="text-3xl font-black text-emerald-600">1.4°</span>
+                            </div>
+                            <div class="progress-bar h-4">
+                                <div class="progress-fill bg-emerald-500" style="width: 14%"></div>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-3">Nearly equal perception between genders. Progressive educational policies and cultural shifts toward gender equality are evident.</p>
+                        </div>
+
+                        <div class="insight-box p-6 rounded-lg">
+                            <h5 class="font-bold text-amber-800 mb-3 text-lg">🎯 Cultural Impact</h5>
+                            <p class="text-sm text-amber-700 leading-relaxed">Irish parents show <strong>5x less gender bias</strong> than Indian parents, suggesting more progressive views on gender equality in STEM fields. This cultural difference has significant implications for educational policy and intervention strategies.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Technology Infrastructure -->
+        <section class="mb-24 animate-on-scroll">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-black mb-6 gradient-text">Technology Infrastructure & Access</h2>
+                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                    Both countries demonstrate excellent technology infrastructure with near-universal smartphone access and high computer penetration, providing a strong foundation for digital education initiatives.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="stat-card text-center">
+                    <div class="text-7xl mb-6">📱</div>
+                    <h3 class="text-2xl font-bold mb-6 text-gray-800">Smartphone Access</h3>
+                    <div class="space-y-4">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <div class="text-4xl font-black text-blue-600 mb-1">100%</div>
+                            <div class="text-sm text-gray-600">India</div>
+                            <div class="progress-bar mt-2">
+                                <div class="progress-fill bg-blue-500" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="bg-emerald-50 p-4 rounded-lg">
+                            <div class="text-4xl font-black text-emerald-600 mb-1">100%</div>
+                            <div class="text-sm text-gray-600">Ireland</div>
+                            <div class="progress-bar mt-2">
+                                <div class="progress-fill bg-emerald-500" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-3 bg-gray-50 rounded-lg">
+                        <div class="text-sm text-gray-600">Universal mobile connectivity enables ubiquitous learning opportunities</div>
+                    </div>
+                </div>
+
+                <div class="stat-card text-center">
+                    <div class="text-7xl mb-6">💻</div>
+                    <h3 class="text-2xl font-bold mb-6 text-gray-800">Computer Access</h3>
+                    <div class="space-y-4">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <div class="text-4xl font-black text-blue-600 mb-1">95.5%</div>
+                            <div class="text-sm text-gray-600">India</div>
+                            <div class="progress-bar mt-2">
+                                <div class="progress-fill bg-blue-500" style="width: 95.5%"></div>
+                            </div>
+                        </div>
+                        <div class="bg-emerald-50 p-4 rounded-lg">
+                            <div class="text-4xl font-black text-emerald-600 mb-1">87.9%</div>
+                            <div class="text-sm text-gray-600">Ireland</div>
+                            <div class="progress-bar mt-2">
+                                <div class="progress-fill bg-emerald-500" style="width: 87.9%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-3 bg-gray-50 rounded-lg">
+                        <div class="text-sm text-gray-600">High computer penetration supports coding and technical skill development</div>
+                    </div>
+                </div>
+
+                <div class="stat-card text-center">
+                    <div class="text-7xl mb-6">🌐</div>
+                    <h3 class="text-2xl font-bold mb-6 text-gray-800">Internet Access</h3>
+                    <div class="space-y-4">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <div class="text-4xl font-black text-blue-600 mb-1">97.7%</div>
+                            <div class="text-sm text-gray-600">India</div>
+                            <div class="progress-bar mt-2">
+                                <div class="progress-fill bg-blue-500" style="width: 97.7%"></div>
+                            </div>
+                        </div>
+                        <div class="bg-emerald-50 p-4 rounded-lg">
+                            <div class="text-4xl font-black text-emerald-600 mb-1">90.9%</div>
+                            <div class="text-sm text-gray-600">Ireland</div>
+                            <div class="progress-bar mt-2">
+                                <div class="progress-fill bg-emerald-500" style="width: 90.9%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-3 bg-gray-50 rounded-lg">
+                        <div class="text-sm text-gray-600">Widespread connectivity enables online learning and digital collaboration</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Confidence-Interest Analysis -->
+        <section class="mb-24 animate-on-scroll">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-black mb-6 gradient-text">The Confidence-Interest Paradox</h2>
+                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                    A critical finding emerges: high interest doesn't automatically translate to high confidence. This paradox reveals important insights about educational approaches and cultural factors affecting STEM learning.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                <div class="stat-card">
+                    <h3 class="text-2xl font-bold mb-6 text-gray-800">Interest vs Confidence Profile</h3>
+                    <div class="chart-container">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <h3 class="text-2xl font-bold mb-6 text-gray-800">Cultural Learning Profiles</h3>
+                    <div class="space-y-6">
+                        <div class="border-l-4 border-blue-500 pl-6 py-4">
+                            <h4 class="font-bold text-blue-600 mb-3 text-lg">🇮🇳 India: High Interest, Moderate Confidence</h4>
+                            <div class="grid grid-cols-2 gap-4 mb-3">
+                                <div class="bg-blue-50 p-3 rounded-lg text-center">
+                                    <div class="text-2xl font-bold text-blue-600">2.93</div>
+                                    <div class="text-xs text-gray-600">STEM Interest</div>
+                                </div>
+                                <div class="bg-blue-100 p-3 rounded-lg text-center">
+                                    <div class="text-2xl font-bold text-blue-700">2.28</div>
+                                    <div class="text-xs text-gray-600">Tech Confidence</div>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-700">Strong motivation and enthusiasm for STEM subjects, but lower technical confidence suggests need for hands-on skill building and practical experience.</p>
+                        </div>
+                        
+                        <div class="border-l-4 border-emerald-500 pl-6 py-4">
+                            <h4 class="font-bold text-emerald-600 mb-3 text-lg">🇮🇪 Ireland: Balanced Technical Profile</h4>
+                            <div class="grid grid-cols-2 gap-4 mb-3">
+                                <div class="bg-emerald-50 p-3 rounded-lg text-center">
+                                    <div class="text-2xl font-bold text-emerald-600">2.10</div>
+                                    <div class="text-xs text-gray-600">STEM Interest</div>
+                                </div>
+                                <div class="bg-emerald-100 p-3 rounded-lg text-center">
+                                    <div class="text-2xl font-bold text-emerald-700">2.97</div>
+                                    <div class="text-xs text-gray-600">Tech Confidence</div>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-700">Strong technical foundation with high coding confidence, but moderate interest levels suggest opportunities to enhance motivation and engagement.</p>
+                        </div>
+
+                        <div class="insight-box p-6 rounded-lg">
+                            <h5 class="font-bold text-amber-800 mb-3">📊 Statistical Insight</h5>
+                            <p class="text-sm text-amber-700 mb-3">The correlation between interest and confidence is remarkably weak (r = 0.044), indicating these are largely independent factors requiring different educational strategies.</p>
+                            <div class="bg-amber-100 p-3 rounded-lg">
+                                <div class="text-center">
+                                    <div class="text-xl font-bold text-amber-800">0.044</div>
+                                    <div class="text-xs text-amber-600">Interest-Confidence Correlation</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Educational Implications -->
+        <section class="mb-24 animate-on-scroll">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-black mb-6 gradient-text">Educational Implications & Recommendations</h2>
+                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                    Based on our comprehensive analysis, we present targeted recommendations for each country to optimize their technology education approaches and bridge identified gaps.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- India Recommendations -->
+                <div class="stat-card border-l-4 border-blue-500">
+                    <div class="flex items-center mb-6">
+                        <span class="text-4xl mr-4">🇮🇳</span>
+                        <h3 class="text-2xl font-bold text-gray-800">Strategic Focus for India</h3>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-blue-50 p-5 rounded-lg">
+                            <h4 class="font-bold text-blue-800 mb-3 flex items-center">
+                                <span class="mr-2">🛠️</span> Build Practical Technical Skills
+                            </h4>
+                            <p class="text-sm text-blue-700 mb-3">Leverage exceptionally high STEM interest (2.93) with comprehensive hands-on coding and technical training programs.</p>
+                            <ul class="text-xs text-blue-600 space-y-1">
+                                <li>• Implement maker spaces and coding bootcamps</li>
+                                <li>• Partner with tech industry for practical exposure</li>
+                                <li>• Focus on project-based learning approaches</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-red-50 p-5 rounded-lg">
+                            <h4 class="font-bold text-red-800 mb-3 flex items-center">
+                                <span class="mr-2">⚖️</span> Address Gender Bias (7.2 Point Gap)
+                            </h4>
+                            <p class="text-sm text-red-700 mb-3">Implement targeted interventions to reduce significant gender perception differences in technology capabilities.</p>
+                            <ul class="text-xs text-red-600 space-y-1">
+                                <li>• Parental awareness and education programs</li>
+                                <li>• Showcase female tech role models and success stories</li>
+                                <li>• Gender-inclusive curriculum and teaching practices</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-yellow-50 p-5 rounded-lg">
+                            <h4 class="font-bold text-yellow-800 mb-3 flex items-center">
+                                <span class="mr-2">🚀</span> Bridge Interest-Confidence Gap
+                            </h4>
+                            <p class="text-sm text-yellow-700 mb-3">Create supportive environments that transform high interest into practical technical confidence.</p>
+                            <ul class="text-xs text-yellow-600 space-y-1">
+                                <li>• Mentorship programs with tech professionals</li>
+                                <li>• Incremental skill-building with immediate feedback</li>
+                                <li>• Celebrate small wins to build confidence progressively</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ireland Recommendations -->
+                <div class="stat-card border-l-4 border-emerald-500">
+                    <div class="flex items-center mb-6">
+                        <span class="text-4xl mr-4">🇮🇪</span>
+                        <h3 class="text-2xl font-bold text-gray-800">Strategic Focus for Ireland</h3>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-emerald-50 p-5 rounded-lg">
+                            <h4 class="font-bold text-emerald-800 mb-3 flex items-center">
+                                <span class="mr-2">🎯</span> Enhance STEM Motivation
+                            </h4>
+                            <p class="text-sm text-emerald-700 mb-3">Build on strong technical foundation (2.97) by increasing STEM interest and engagement levels.</p>
+                            <ul class="text-xs text-emerald-600 space-y-1">
+                                <li>• Connect STEM learning to real-world applications</li>
+                                <li>• Gamification and interactive learning experiences</li>
+                                <li>• Industry collaboration for relevant project work</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-green-50 p-5 rounded-lg">
+                            <h4 class="font-bold text-green-800 mb-3 flex items-center">
+                                <span class="mr-2">🏆</span> Maintain Gender Equality Leadership
+                            </h4>
+                            <p class="text-sm text-green-700 mb-3">Continue progressive approach with minimal gender bias (1.4 points) and share best practices globally.</p>
+                            <ul class="text-xs text-green-600 space-y-1">
+                                <li>• Document and scale successful equity initiatives</li>
+                                <li>• International knowledge sharing programs</li>
+                                <li>• Research-based policy development</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-purple-50 p-5 rounded-lg">
+                            <h4 class="font-bold text-purple-800 mb-3 flex items-center">
+                                <span class="mr-2">💡</span> Innovation & Creativity Focus
+                            </h4>
+                            <p class="text-sm text-purple-700 mb-3">Channel high technical confidence into creative problem-solving and innovation leadership.</p>
+                            <ul class="text-xs text-purple-600 space-y-1">
+                                <li>• Design thinking and creative coding programs</li>
+                                <li>• Entrepreneurship and startup incubation</li>
+                                <li>• Cross-disciplinary innovation projects</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research Summary -->
+        <section class="mb-16 animate-on-scroll">
+            <div class="stat-card bg-gradient-to-r from-blue-50 to-emerald-50 border-l-4 border-blue-500">
+                <h3 class="text-3xl font-bold mb-6 text-center gradient-text">Research Summary & Impact</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <h4 class="font-bold text-gray-800 mb-3">Methodology</h4>
+                        <div class="space-y-2 text-sm text-gray-600">
+                            <div>Technology Acceptance Model (TAM) Framework</div>
+                            <div>Cross-cultural Comparative Analysis</div>
+                            <div>Statistical Correlation Testing</div>
+                            <div>Gender Bias Quantification</div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="font-bold text-gray-800 mb-3">Key Findings</h4>
+                        <div class="space-y-2 text-sm text-gray-600">
+                            <div>5x Gender Bias Difference</div>
+                            <div>Interest-Confidence Disconnect</div>
+                            <div>Universal Technology Access</div>
+                            <div>Cultural Learning Profiles</div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="font-bold text-gray-800 mb-3">Applications</h4>
+                        <div class="space-y-2 text-sm text-gray-600">
+                            <div>Educational Policy Development</div>
+                            <div>Gender Equity Initiatives</div>
+                            <div>Cross-cultural Program Design</div>
+                            <div>International Collaboration</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="container mx-auto px-6 text-center">
+            <h3 class="text-3xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
+                Cross-Cultural Technology Education Analysis
+            </h3>
+            <p class="text-gray-400 mb-8 text-lg max-w-3xl mx-auto">
+                A comprehensive study comparing technology acceptance and STEM perceptions between India and Ireland, providing insights for global educational policy and practice.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm text-gray-500 max-w-4xl mx-auto">
+                <div>
+                    <h4 class="font-bold text-white mb-3">Study Details</h4>
+                    <div>Study Period: 2024</div>
+                    <div>Sample Size: 156 participants</div>
+                    <div>Countries: India & Ireland</div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-3">Methodology</h4>
+                    <div>Technology Acceptance Model (TAM)</div>
+                    <div>Cross-cultural Comparative Analysis</div>
+                    <div>Statistical Correlation Testing</div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-3">Research Impact</h4>
+                    <div>Educational Policy Development</div>
+                    <div>Gender Equity Initiatives</div>
+                    <div>International Collaboration</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Color scheme
+            const colors = {
+                india: '#3b82f6',
+                ireland: '#10b981',
+                accent: '#f59e0b',
+                success: '#10b981',
+                warning: '#f59e0b',
+                danger: '#ef4444',
+                girls: '#ef4444',
+                boys: '#3b82f6'
+            };
+
+            // Chart configuration
+            const chartConfig = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            padding: 20,
+                            font: { size: 12, weight: 'bold' },
+                            usePointStyle: true
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleColor: 'white',
+                        bodyColor: 'white',
+                        borderColor: 'rgba(255, 255, 255, 0.2)',
+                        borderWidth: 1,
+                        cornerRadius: 8,
+                        padding: 12
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(0, 0, 0, 0.05)' },
+                        ticks: { font: { size: 11 } }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { font: { size: 11, weight: 'bold' } }
+                    }
+                }
+            };
+
+            // Student TAM Chart - Accurate data from v2.ipynb
+            const studentTamCtx = document.getElementById('studentTamChart').getContext('2d');
+            new Chart(studentTamCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['India', 'Ireland'],
+                    datasets: [
+                        {
+                            label: 'Perceived Usefulness (STEM Interest)',
+                            data: [2.933, 2.103],
+                            backgroundColor: colors.india,
+                            borderRadius: 8,
+                            borderSkipped: false
+                        },
+                        {
+                            label: 'Perceived Ease of Use (Tech Confidence)',
+                            data: [2.278, 2.971],
+                            backgroundColor: colors.ireland,
+                            borderRadius: 8,
+                            borderSkipped: false
+                        },
+                        {
+                            label: 'Attitude Score',
+                            data: [2.933, 2.103],
+                            backgroundColor: colors.accent,
+                            borderRadius: 8,
+                            borderSkipped: false
+                        }
+                    ]
+                },
+                options: {
+                    ...chartConfig,
+                    scales: {
+                        ...chartConfig.scales,
+                        y: {
+                            ...chartConfig.scales.y,
+                            max: 4,
+                            title: {
+                                display: true,
+                                text: 'TAM Score (1-4 scale)',
+                                font: { weight: 'bold', size: 12 }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Parent TAM Chart
+            const parentTamCtx = document.getElementById('parentTamChart').getContext('2d');
+            new Chart(parentTamCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['India', 'Ireland'],
+                    datasets: [
+                        {
+                            label: 'Technology Interest (Child)',
+                            data: [4.0, 4.0],
+                            backgroundColor: colors.india,
+                            borderRadius: 8,
+                            borderSkipped: false
+                        },
+                        {
+                            label: 'Coding Ease Perception (Child)',
+                            data: [4.0, 4.0],
+                            backgroundColor: colors.ireland,
+                            borderRadius: 8,
+                            borderSkipped: false
+                        }
+                    ]
+                },
+                options: {
+                    ...chartConfig,
+                    scales: {
+                        ...chartConfig.scales,
+                        y: {
+                            ...chartConfig.scales.y,
+                            max: 6,
+                            title: {
+                                display: true,
+                                text: 'Parent TAM Score (1-6 scale)',
+                                font: { weight: 'bold', size: 12 }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Radar Chart for Interest vs Confidence
+            const radarCtx = document.getElementById('radarChart').getContext('2d');
+            new Chart(radarCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['STEM Interest', 'Coding Confidence', 'Computer Skills', 'Math Interest', 'Overall Attitude'],
+                    datasets: [
+                        {
+                            label: 'India',
+                            data: [2.93, 2.28, 2.5, 2.8, 2.93],
+                            borderColor: colors.india,
+                            backgroundColor: colors.india + '20',
+                            borderWidth: 3,
+                            pointBackgroundColor: colors.india,
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 6
+                        },
+                        {
+                            label: 'Ireland',
+                            data: [2.10, 2.97, 3.2, 2.0, 2.10],
+                            borderColor: colors.ireland,
+                            backgroundColor: colors.ireland + '20',
+                            borderWidth: 3,
+                            pointBackgroundColor: colors.ireland,
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                padding: 20,
+                                font: { size: 14, weight: 'bold' },
+                                usePointStyle: true
+                            }
+                        }
+                    },
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 4,
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                            pointLabels: {
+                                font: { size: 11, weight: 'bold' },
+                                color: '#374151'
+                            },
+                            ticks: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Gender Bias Chart
+            const genderBiasCtx = document.getElementById('genderBiasChart').getContext('2d');
+            new Chart(genderBiasCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['India', 'Ireland'],
+                    datasets: [
+                        {
+                            label: 'Girls Tech Capability (%)',
+                            data: [61.4, 74.2],
+                            backgroundColor: colors.girls,
+                            borderRadius: 8,
+                            borderSkipped: false
+                        },
+                        {
+                            label: 'Boys Tech Capability (%)',
+                            data: [68.6, 75.6],
+                            backgroundColor: colors.boys,
+                            borderRadius: 8,
+                            borderSkipped: false
+                        }
+                    ]
+                },
+                options: {
+                    ...chartConfig,
+                    scales: {
+                        ...chartConfig.scales,
+                        y: {
+                            ...chartConfig.scales.y,
+                            min: 50,
+                            max: 80,
+                            title: {
+                                display: true,
+                                text: 'Parental Agreement (%)',
+                                font: { weight: 'bold', size: 12 }
+                            }
+                        }
+                    },
+                    plugins: {
+                        ...chartConfig.plugins,
+                        title: {
+                            display: true,
+                            text: 'Gender Bias Gap: India (7.2 points) vs Ireland (1.4 points)',
+                            font: { size: 14, weight: 'bold' },
+                            padding: 20
+                        }
+                    }
+                }
+            });
+
+            // Scroll animation
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+                observer.observe(el);
+            });
+
+            // Progress bar animation
+            setTimeout(() => {
+                document.querySelectorAll('.progress-fill').forEach((bar) => {
+                    const width = bar.style.width;
+                    bar.style.width = '0%';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 100);
+                });
+            }, 500);
+        });
+    </script>
+</body>
+</html>
+
+            </p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="stat-card">
+                    <h3 class="text-xl font-semibold mb-4" style="color: #073B4C;">Prior Programming Languages Heard Of</h3>
+                    <div class="chart-container" style="height: 350px;">
+                        <canvas id="languagesHeardOfChart"></canvas>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <h3 class="text-xl font-semibold mb-4" style="color: #073B4C;">Primary Use of Technology</h3>
+                    <div class="chart-container" style="height: 350px;">
+                        <canvas id="techPurposeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="parental-view" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8 gradient-text">The Parental Perspective: A Double-Edged Sword</h2>
+            <p class="text-center max-w-2xl mx-auto text-gray-600 mb-12">
+                Parents overwhelmingly see technology as a powerful tool for learning. However, this optimism is balanced by significant concerns about its potential downsides, revealing a need for guidance on fostering healthy digital habits.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="stat-card">
+                    <div class="text-6xl font-black" style="color: #06D6A0;">90%+</div>
+                    <div class="text-xl font-semibold mt-2 text-gray-700">of parents in both countries believe technology helps their child's learning.</div>
+                </div>
+                <div class="stat-card">
+                    <h3 class="text-2xl font-bold mb-4" style="color: #118AB2;">Key Benefits Cited</h3>
+                    <ul class="text-left space-y-2 text-lg">
+                        <li class="flex items-center"><span class="text-2xl mr-2" style="color: #06D6A0;">&#10003;</span> Access to Information</li>
+                        <li class="flex items-center"><span class="text-2xl mr-2" style="color: #06D6A0;">&#10003;</span> Interactive Learning</li>
+                        <li class="flex items-center"><span class="text-2xl mr-2" style="color: #06D6A0;">&#10003;</span> Research & Problem-Solving</li>
+                    </ul>
+                </div>
+                <div class="stat-card">
+                    <h3 class="text-2xl font-bold mb-4" style="color: #FF6B6B;">Major Concerns Raised</h3>
+                    <ul class="text-left space-y-2 text-lg">
+                        <li class="flex items-center"><span class="text-2xl mr-2" style="color: #FF6B6B;">&#10007;</span> Distractions & Addiction</li>
+                        <li class="flex items-center"><span class="text-2xl mr-2" style="color: #FF6B6B;">&#10007;</span> Passive Screen Time</li>
+                        <li class="flex items-center"><span class="text-2xl mr-2" style="color: #FF6B6B;">&#10007;</span> Limiting Creativity</li>
+                    </ul>
+                </div>
+            </div>
+             <div class="stat-card mt-8">
+                <h3 class="text-xl font-semibold mb-4 text-center" style="color: #073B4C;">Parental STEM Qualification & Beliefs</h3>
+                 <p class="text-center max-w-2xl mx-auto text-gray-600 mb-4">
+                    Parents with a STEM qualification show a higher belief that technology helps their child's learning.
+                </p>
+                <div class="chart-container" style="height: 350px;">
+                    <canvas id="parentalQualsChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="gender-dynamics" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8 gradient-text">Gender Dynamics in STEM</h2>
+            <p class="text-center max-w-2xl mx-auto text-gray-600 mb-12">
+                While parents generally agree that both boys and girls can excel in technology, a subtle bias emerges. Irish parents show slightly higher overall agreement and a smaller gap in perception compared to Indian parents, indicating different cultural nuances.
+            </p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                 <div class="stat-card">
+                    <h3 class="text-xl font-semibold mb-6" style="color: #073B4C;">Parental Agreement on Gender & Tech Ability</h3>
+                    <div class="grid grid-cols-2 gap-6 mb-6">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold mb-2" style="color: #FF6B6B;">61.4</div>
+                            <div class="text-sm font-medium text-gray-600">India - Girls</div>
+                            <div class="w-full bg-gray-200 rounded-full h-3 mt-2">
+                                <div class="bg-red-400 h-3 rounded-full" style="width: 61.4%"></div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold mb-2" style="color: #118AB2;">67.5</div>
+                            <div class="text-sm font-medium text-gray-600">India - Boys</div>
+                            <div class="w-full bg-gray-200 rounded-full h-3 mt-2">
+                                <div class="bg-blue-400 h-3 rounded-full" style="width: 67.5%"></div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold mb-2" style="color: #FF6B6B;">74.2</div>
+                            <div class="text-sm font-medium text-gray-600">Ireland - Girls</div>
+                            <div class="w-full bg-gray-200 rounded-full h-3 mt-2">
+                                <div class="bg-red-400 h-3 rounded-full" style="width: 74.2%"></div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold mb-2" style="color: #118AB2;">77.3</div>
+                            <div class="text-sm font-medium text-gray-600">Ireland - Boys</div>
+                            <div class="w-full bg-gray-200 rounded-full h-3 mt-2">
+                                <div class="bg-blue-400 h-3 rounded-full" style="width: 77.3%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-center items-center space-x-6 text-sm">
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-red-400 rounded-full mr-2"></div>
+                            <span>Girls Tech Ability</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-blue-400 rounded-full mr-2"></div>
+                            <span>Boys Tech Ability</span>
+                        </div>
+                    </div>
+                </div>
+                 <div class="stat-card">
+                    <h3 class="text-xl font-semibold mb-6" style="color: #073B4C;">Gender Bias in STEM Perceptions</h3>
+                    <div class="space-y-6">
+                        <div class="border-l-4 border-red-500 pl-6">
+                            <h4 class="text-lg font-semibold text-red-600 mb-2">India: Higher Gender Bias</h4>
+                            <div class="flex items-center space-x-4">
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-red-600">7.2</div>
+                                    <div class="text-xs text-gray-500">Points Difference</div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-sm text-gray-600 mb-1">Boys perceived as more capable</div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-red-500 h-2 rounded-full" style="width: 72%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="border-l-4 border-green-500 pl-6">
+                            <h4 class="text-lg font-semibold text-green-600 mb-2">Ireland: Lower Gender Bias</h4>
+                            <div class="flex items-center space-x-4">
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-green-600">1.4</div>
+                                    <div class="text-xs text-gray-500">Points Difference</div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-sm text-gray-600 mb-1">More equal perception</div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-green-500 h-2 rounded-full" style="width: 14%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h5 class="font-semibold text-blue-800 mb-2">Key Insight</h5>
+                            <p class="text-sm text-blue-700">Irish parents show 5x less gender bias than Indian parents when rating technology abilities, suggesting more progressive views on gender equality in STEM fields.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tam-analysis" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8 gradient-text">Technology Acceptance Model (TAM) Analysis</h2>
+            <p class="text-center max-w-3xl mx-auto text-gray-600 mb-12">
+                Using the Technology Acceptance Model, we analyzed how students perceive the usefulness and ease of use of technology. The results reveal fascinating cultural differences: India shows higher perceived usefulness (motivation toward STEM), while Ireland demonstrates higher perceived ease of use (technical confidence).
+            </p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="stat-card">
+                    <h3 class="text-xl font-semibold mb-4" style="color: #073B4C;">Student TAM Scores Comparison</h3>
+                    <div class="chart-container" style="height: 350px;">
+                        <canvas id="tamStudentChart"></canvas>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <h3 class="text-xl font-semibold mb-4" style="color: #073B4C;">Parent TAM Scores Comparison</h3>
+                    <div class="chart-container" style="height: 350px;">
+                        <canvas id="tamParentChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                <div class="stat-card text-center">
+                    <div class="text-3xl font-bold mb-2" style="color: #118AB2;">2.93</div>
+                    <h4 class="text-sm font-semibold text-gray-700">India - Perceived Usefulness</h4>
+                    <p class="text-xs text-gray-500 mt-1">Higher STEM interest and motivation</p>
+                </div>
+                <div class="stat-card text-center">
+                    <div class="text-3xl font-bold mb-2" style="color: #06D6A0;">2.97</div>
+                    <h4 class="text-sm font-semibold text-gray-700">Ireland - Perceived Ease of Use</h4>
+                    <p class="text-xs text-gray-500 mt-1">Higher coding confidence</p>
+                </div>
+                <div class="stat-card text-center">
+                    <div class="text-3xl font-bold mb-2" style="color: #FF6B6B;">7.2 vs 1.4</div>
+                    <h4 class="text-sm font-semibold text-gray-700">Gender Bias Points</h4>
+                    <p class="text-xs text-gray-500 mt-1">India vs Ireland difference</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="recommendations">
+            <h2 class="text-3xl font-bold text-center mb-8 gradient-text">The Path Forward</h2>
+             <p class="text-center max-w-2xl mx-auto text-gray-600 mb-12">
+                Based on the findings, several key strategies can help foster a more robust and inclusive global STEM pipeline.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="stat-card">
+                    <div class="text-4xl mb-4">🎓</div>
+                    <h3 class="text-xl font-bold mb-2" style="color: #073B4C;">Early, Hands-On Curricula</h3>
+                    <p class="text-gray-600">Implement project-based coding education from primary school to build foundational skills and confidence.</p>
+                </div>
+                <div class="stat-card">
+                    <div class="text-4xl mb-4">🎨</div>
+                    <h3 class="text-xl font-bold mb-2" style="color: #073B4C;">Foster Active Creation</h3>
+                    <p class="text-gray-600">Shift focus from passive tech consumption to active creation through development projects and creative assignments.</p>
+                </div>
+                <div class="stat-card">
+                    <div class="text-4xl mb-4">👨‍👩‍👧‍👦</div>
+                    <h3 class="text-xl font-bold mb-2" style="color: #073B4C;">Enhance Parental Literacy</h3>
+                    <p class="text-gray-600">Educate parents on the learning curve of coding and provide resources for responsible screen time management.</p>
+                </div>
+                <div class="stat-card">
+                    <div class="text-4xl mb-4">♀️♂️</div>
+                    <h3 class="text-xl font-bold mb-2" style="color: #073B4C;">Dismantle Subtle Biases</h3>
+                    <p class="text-gray-600">Promote diverse role models across all STEM fields to challenge specific, field-related gender stereotypes.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center p-8 mt-8 bg-white">
+        <p class="text-gray-500">Infographic based on the report: "A Comparative Analysis of Student and Parental Perceptions of Technology and Coding in India and Ireland."</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const wrapLabel = (label, maxWidth) => {
+                const words = label.split(' ');
+                let lines = [];
+                let currentLine = words[0];
+
+                for (let i = 1; i < words.length; i++) {
+                    if ((currentLine + ' ' + words[i]).length < maxWidth) {
+                        currentLine += ' ' + words[i];
+                    } else {
+                        lines.push(currentLine);
+                        currentLine = words[i];
+                    }
+                }
+                lines.push(currentLine);
+                return lines;
+            };
+
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                }
+                return label;
+            };
+
+            const defaultChartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                size: 14,
+                                weight: '600'
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        },
+                        backgroundColor: '#073B4C',
+                        titleFont: { size: 16, weight: 'bold' },
+                        bodyFont: { size: 14 },
+                        padding: 12,
+                        cornerRadius: 8
+                    }
+                }
+            };
+            
+            const colors = {
+                red: '#FF6B6B',
+                yellow: '#FFD166',
+                green: '#06D6A0',
+                blue: '#118AB2',
+                navy: '#073B4C',
+                lightGray: '#E9ECEF',
+                darkBlue: '#0A2E36'
+            };
+
+            const createDoughnutChart = (canvasId, label, percentage) => {
+                const ctx = document.getElementById(canvasId).getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: [label, 'Other Aspirations'],
+                        datasets: [{
+                            data: [percentage, 100 - percentage],
+                            backgroundColor: [colors.green, colors.lightGray],
+                            borderColor: ['#ffffff'],
+                            borderWidth: 4,
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '70%',
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                enabled: false
+                            },
+                            title: {
+                                display: true,
+                                text: `${percentage}%`,
+                                position: 'top',
+                                font: {
+                                    size: 36,
+                                    weight: '900',
+                                    family: "'Inter', sans-serif"
+                                },
+                                color: colors.navy,
+                                padding: { top: 100 }
+                            }
+                        }
+                    }
+                });
+            };
+
+            createDoughnutChart('indiaBoysStemChart', 'STEM Aspirations', 57.1);
+            createDoughnutChart('indiaGirlsStemChart', 'STEM Aspirations', 40.0);
+            createDoughnutChart('irelandBoysStemChart', 'STEM Aspirations', 50.0);
+            createDoughnutChart('irelandGirlsStemChart', 'STEM Aspirations', 33.3);
+
+            const confidenceGapCtx = document.getElementById('confidenceGapChart').getContext('2d');
+            new Chart(confidenceGapCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['India', 'Ireland'],
+                    datasets: [
+                        {
+                            label: 'Computer Skills Confidence',
+                            data: [2.7, 2.7],
+                            backgroundColor: colors.blue,
+                            borderColor: colors.blue,
+                            borderWidth: 1,
+                            borderRadius: 5
+                        },
+                        {
+                            label: 'Coding Skills Confidence',
+                            data: [3.2, 3.05],
+                            backgroundColor: colors.red,
+                            borderColor: colors.red,
+                            borderWidth: 1,
+                            borderRadius: 5
+                        }
+                    ]
+                },
+                options: { ...defaultChartOptions,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 1,
+                            max: 4,
+                            reverse: false,
+                            title: {
+                                display: true,
+                                text: 'Average Confidence Score (1=Highest)',
+                                font: { size: 14, weight: '600' }
+                            },
+                            ticks: {
+                                stepSize: 1,
+                                callback: function(value, index, values) {
+                                    const labels = {1: 'Very Confident', 2: 'Quite Confident', 3: 'A Little Confident', 4: 'Not Confident'};
+                                    return labels[value];
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const interestLevelsCtx = document.getElementById('interestLevelsChart').getContext('2d');
+            new Chart(interestLevelsCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['India', 'Ireland'],
+                    datasets: [
+                        {
+                            label: 'Science & Technology Interest',
+                            data: [2.1, 2.05],
+                            backgroundColor: colors.green,
+                            borderColor: colors.green,
+                            borderWidth: 1,
+                            borderRadius: 5
+                        },
+                        {
+                            label: 'Maths Interest',
+                            data: [1.95, 2.25],
+                            backgroundColor: colors.yellow,
+                            borderColor: colors.yellow,
+                            borderWidth: 1,
+                            borderRadius: 5
+                        }
+                    ]
+                },
+                options: { ...defaultChartOptions,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 1,
+                            max: 4,
+                            reverse: false,
+                            title: {
+                                display: true,
+                                text: 'Average Interest Score (1=Highest)',
+                                font: { size: 14, weight: '600' }
+                            },
+                            ticks: {
+                                stepSize: 1,
+                                callback: function(value, index, values) {
+                                    const labels = {1: 'Really Interested', 2: 'Quite Interested', 3: 'A Little Interested', 4: 'Not Interested'};
+                                    return labels[value];
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const languagesCtx = document.getElementById('languagesHeardOfChart').getContext('2d');
+            new Chart(languagesCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Python', 'HTML', 'Java', 'Scratch', 'C++', 'C#', 'Lua'],
+                    datasets: [{
+                        label: 'Number of Students',
+                        data: [12, 10, 8, 7, 5, 3, 2],
+                        backgroundColor: [colors.blue, colors.green, colors.yellow, colors.red, colors.blue, colors.green, colors.yellow],
+                        borderColor: [colors.blue, colors.green, colors.yellow, colors.red, colors.blue, colors.green, colors.yellow],
+                        borderWidth: 1,
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    ...defaultChartOptions,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Number of Students',
+                                font: { size: 14, weight: '600' }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            const techPurposeCtx = document.getElementById('techPurposeChart').getContext('2d');
+            new Chart(techPurposeCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Entertainment', 'Education', 'Communication', 'Development'],
+                    datasets: [{
+                        data: [45, 28, 15, 12],
+                        backgroundColor: [colors.red, colors.green, colors.yellow, colors.blue],
+                        borderColor: '#ffffff',
+                        borderWidth: 2,
+                        hoverOffset: 4
+                    }]
+                },
+                options: { ...defaultChartOptions }
+            });
+
+            const parentalQualsCtx = document.getElementById('parentalQualsChart').getContext('2d');
+            new Chart(parentalQualsCtx, {
+                type: 'bar',
+                data: {
+                    labels: [wrapLabel('Parents with STEM Quals', 16), wrapLabel('Parents without STEM Quals', 16)],
+                    datasets: [
+                        {
+                            label: 'India',
+                            data: [77.8, 88.9],
+                            backgroundColor: colors.green,
+                            borderColor: colors.green,
+                            borderWidth: 1,
+                            borderRadius: 5
+                        },
+                        {
+                            label: 'Ireland',
+                            data: [100.0, 90.9],
+                            backgroundColor: colors.blue,
+                            borderColor: colors.blue,
+                            borderWidth: 1,
+                            borderRadius: 5
+                        }
+                    ]
+                },
+                options: {
+                    ...defaultChartOptions,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Percentage of Parents (%)',
+                                font: { size: 14, weight: '600' }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // TAM Student Chart
+            const tamStudentCtx = document.getElementById('tamStudentChart').getContext('2d');
+            new Chart(tamStudentCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['India', 'Ireland'],
+                    datasets: [
+                        {
+                            label: 'Perceived Usefulness (STEM Interest)',
+                            data: [2.93, 2.10],
+                            backgroundColor: colors.blue,
+                            borderColor: colors.blue,
+                            borderWidth: 1,
+                            borderRadius: 5
+                        },
+                        {
+                            label: 'Perceived Ease of Use (Coding Confidence)',
+                            data: [2.28, 2.97],
+                            backgroundColor: colors.green,
+                            borderColor: colors.green,
+                            borderWidth: 1,
+                            borderRadius: 5
+                        },
+                        {
+                            label: 'Attitude Score',
+                            data: [2.93, 2.10],
+                            backgroundColor: colors.yellow,
+                            borderColor: colors.yellow,
+                            borderWidth: 1,
+                            borderRadius: 5
+                        }
+                    ]
+                },
+                options: { ...defaultChartOptions,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 4,
+                            title: {
+                                display: true,
+                                text: 'Average TAM Score (1-4 scale)',
+                                font: { size: 14, weight: '600' }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // TAM Parent Chart
+            const tamParentCtx = document.getElementById('tamParentChart').getContext('2d');
+            new Chart(tamParentCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['India', 'Ireland'],
+                    datasets: [
+                        {
+                            label: 'Technology Interest (Child)',
+                            data: [3.8, 3.9],
+                            backgroundColor: colors.blue,
+                            borderColor: colors.blue,
+                            borderWidth: 1,
+                            borderRadius: 5
+                        },
+                        {
+                            label: 'Coding Ease Perception (Child)',
+                            data: [3.5, 4.0],
+                            backgroundColor: colors.green,
+                            borderColor: colors.green,
+                            borderWidth: 1,
+                            borderRadius: 5
+                        }
+                    ]
+                },
+                options: { ...defaultChartOptions,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 5,
+                            title: {
+                                display: true,
+                                text: 'Average Parent TAM Score (1-5 scale)',
+                                font: { size: 14, weight: '600' }
+                            }
+                        }
+                    }
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>
